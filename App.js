@@ -1,18 +1,42 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} from 'react-native';
 
  export default class App extends Component {
 
+
+
   constructor() {
     super()
-    this.state = {
+
+      const isPortrait = () => {
+          const dim = Dimensions.get('screen');
+          return dim.height >= dim.width;
+      };
+
+      this.state = {
+          orientation: isPortrait() ? 'portrait' : 'landscape'
+      };
+
+      // Event Listener for orientation changes
+      Dimensions.addEventListener('change', () => {
+          this.setState({
+              orientation: isPortrait() ? 'portrait' : 'landscape'
+          });
+      });
+
+
+      this.state = {
       resultText: "",
       calculationText: "0"
     }
     this.operations = ['AC','+','-','*','/']
   }
 
-  calculateResult() {
+  componentDidMount(): void {
+
+  }
+
+     calculateResult() {
     const text = this.state.resultText
     this.setState({
       calculationText: eval(text)
@@ -68,91 +92,116 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity} from 'react-
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <View style={styles.result}>
-          <Text style={styles.resultText}>{this.state.resultText}</Text>
-        </View>
-        <View style={styles.calculation}>
-          <Text style={styles.calculationText}>{this.state.calculationText}</Text>
-        </View>
-        <View style={styles.buttons}>
-          <View style={styles.numbers}>
-          <View style={styles.row}>
-              <TouchableOpacity style={styles.empty} onPress={() => this.operate('AC')}>
-                  <Text style={styles.btntext}>AC</Text>
-              </TouchableOpacity >
-            <TouchableOpacity style={styles.empty}>
-            </TouchableOpacity >
-            <TouchableOpacity style={styles.empty}>
-            </TouchableOpacity >
-          </View>
-          <View style={styles.row}>
-            <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(7)}>
-                <Text style={styles.btntext}>7</Text>
-            </TouchableOpacity >
-            <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(8)}>
-                <Text style={styles.btntext}>8</Text>
-            </TouchableOpacity >
-            <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(9)}>
-                <Text style={styles.btntext}>9</Text>
-            </TouchableOpacity >
-          </View>
-          <View style={styles.row}>
-          <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(4)}>
-                <Text style={styles.btntext}>4</Text>
-            </TouchableOpacity >
-            <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(5)}>
-                <Text style={styles.btntext}>5</Text>
-            </TouchableOpacity >
-            <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(6)}>
-                <Text style={styles.btntext}>6</Text>
-            </TouchableOpacity >
-          </View>
-          <View style={styles.row}>
-          <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(1)}>
-                <Text style={styles.btntext}>1</Text>
-            </TouchableOpacity >
-            <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(2)}>
-                <Text style={styles.btntext}>2</Text>
-            </TouchableOpacity >
-            <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(3)}>
-                <Text style={styles.btntext}>3</Text>
-            </TouchableOpacity >
-          </View>
-          <View style={styles.row}>
-          <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(0)}>
-                <Text style={styles.btntext}>0</Text>
-            </TouchableOpacity >
-              <TouchableOpacity style={styles.btn}>
-              </TouchableOpacity >
-            <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed('.')}>
-                <Text style={styles.btntext}>.</Text>
-            </TouchableOpacity >
-          </View>
-          </View>
-          <View style={styles.operations}>
-          <TouchableOpacity style={styles.btn} onPress={() => this.operate('/')}>
-                <Text style={[styles.btntext, styles.white]}>/</Text>
-            </TouchableOpacity >
-            <TouchableOpacity style={styles.btn} onPress={() => this.operate('*')}>
-                <Text style={[styles.btntext, styles.white]}>*</Text>
-            </TouchableOpacity >
-            <TouchableOpacity style={styles.btn} onPress={() => this.operate('-')}>
-                <Text style={[styles.btntext, styles.white]}>-</Text>
-            </TouchableOpacity >
-            <TouchableOpacity style={styles.btn} onPress={() => this.operate('+')}>
-                <Text style={[styles.btntext, styles.white]}>+</Text>
-            </TouchableOpacity >
-            <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed('=')}>
-                <Text style={[styles.btntext, styles.white]}>=</Text>
-            </TouchableOpacity >
-          </View>
-        </View>
-      </View>
-    );
-  }
+          return (
+              <View style={styles.container}>
+                  <View style={styles.result}>
+                      <Text style={styles.resultText}>{this.state.resultText}</Text>
+                  </View>
+                  <View style={styles.calculation}>
+                      <Text style={styles.calculationText}>{this.state.calculationText}</Text>
+                  </View>
+                  <View style={styles.buttons}>
+                      <View style={styles.numbers}>
+                          <View style={styles.row}>
+                              <TouchableOpacity style={styles.empty} onPress={() => this.operate('AC')}>
+                                  <Text style={styles.btntext}>AC</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity style={styles.empty}>
+                              </TouchableOpacity>
+                              <TouchableOpacity style={styles.empty}>
+                              </TouchableOpacity>
+                          </View>
+                          <View style={styles.row}>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(7)}>
+                                  <Text style={styles.btntext}>7</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(8)}>
+                                  <Text style={styles.btntext}>8</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(9)}>
+                                  <Text style={styles.btntext}>9</Text>
+                              </TouchableOpacity>
+                          </View>
+                          <View style={styles.row}>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(4)}>
+                                  <Text style={styles.btntext}>4</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(5)}>
+                                  <Text style={styles.btntext}>5</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(6)}>
+                                  <Text style={styles.btntext}>6</Text>
+                              </TouchableOpacity>
+                          </View>
+                          <View style={styles.row}>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(1)}>
+                                  <Text style={styles.btntext}>1</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(2)}>
+                                  <Text style={styles.btntext}>2</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(3)}>
+                                  <Text style={styles.btntext}>3</Text>
+                              </TouchableOpacity>
+                          </View>
+                          <View style={styles.row}>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed(0)}>
+                                  <Text style={styles.btntext}>0</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity style={styles.btn}>
+                              </TouchableOpacity>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed('.')}>
+                                  <Text style={styles.btntext}>.</Text>
+                              </TouchableOpacity>
+                          </View>
+                      </View>
+                      <View style={styles.operations}>
+                          <TouchableOpacity style={styles.btn} onPress={() => this.operate('/')}>
+                              <Text style={[styles.btntext, styles.white]}>/</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.btn} onPress={() => this.operate('*')}>
+                              <Text style={[styles.btntext, styles.white]}>*</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.btn} onPress={() => this.operate('-')}>
+                              <Text style={[styles.btntext, styles.white]}>-</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.btn} onPress={() => this.operate('+')}>
+                              <Text style={[styles.btntext, styles.white]}>+</Text>
+                          </TouchableOpacity>
+                          <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed('=')}>
+                              <Text style={[styles.btntext, styles.white]}>=</Text>
+                          </TouchableOpacity>
+                      </View>
+                      {
+                          this.state.orientation && this.state.orientation !== 'portrait' && (
+                              <View style={styles.operations}>
+                                  <TouchableOpacity style={styles.btn} onPress={() => this.operate('/')}>
+                                      <Text style={[styles.btntext, styles.white]}>/</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity style={styles.btn} onPress={() => this.operate('*')}>
+                                      <Text style={[styles.btntext, styles.white]}>*</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity style={styles.btn} onPress={() => this.operate('-')}>
+                                      <Text style={[styles.btntext, styles.white]}>-</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity style={styles.btn} onPress={() => this.operate('+')}>
+                                      <Text style={[styles.btntext, styles.white]}>+</Text>
+                                  </TouchableOpacity>
+                                  <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed('=')}>
+                                      <Text style={[styles.btntext, styles.white]}>=</Text>
+                                  </TouchableOpacity>
+                              </View>
+                          )
+                      }
+
+                  </View>
+              </View>
+          );
+      }
+
 }
+
+
 
  const styles = StyleSheet.create({
   container: {
