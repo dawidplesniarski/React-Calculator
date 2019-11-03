@@ -29,12 +29,11 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
       resultText: "",
       calculationText: "0"
     }
+    this.functions = ['sqrt','sin','cos','abs','pow']
     this.operations = ['AC','+','-','*','/']
   }
 
-  componentDidMount(): void {
 
-  }
 
      calculateResult() {
     const text = this.state.resultText
@@ -50,6 +49,7 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
       case '-':
       case '*':
       case '/':
+      case 'sqrt':
           return false
     }
     return true
@@ -89,6 +89,19 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
         })
 
     }
+  }
+
+  function(functions){
+      switch(functions){
+          case 'abs':
+          case 'sqrt':
+              this.setState({
+                  calculationText: Math.sqrt(this.state.resultText)
+              })
+          case 'pow':
+          case 'sin':
+          case 'cos':
+      }
   }
 
   render() {
@@ -175,20 +188,20 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
                       {
                           this.state.orientation && this.state.orientation !== 'portrait' && (
                               <View style={styles.operations}>
-                                  <TouchableOpacity style={styles.btn} onPress={() => this.operate('/')}>
-                                      <Text style={[styles.btntext, styles.white]}>/</Text>
+                                  <TouchableOpacity style={styles.btn} onPress={() => this.function('sqrt')}>
+                                      <Text style={[styles.btntext, styles.white]}>sqrt</Text>
                                   </TouchableOpacity>
                                   <TouchableOpacity style={styles.btn} onPress={() => this.operate('*')}>
-                                      <Text style={[styles.btntext, styles.white]}>*</Text>
+                                      <Text style={[styles.btntext, styles.white]}>abs</Text>
                                   </TouchableOpacity>
                                   <TouchableOpacity style={styles.btn} onPress={() => this.operate('-')}>
-                                      <Text style={[styles.btntext, styles.white]}>-</Text>
+                                      <Text style={[styles.btntext, styles.white]}>tg</Text>
                                   </TouchableOpacity>
                                   <TouchableOpacity style={styles.btn} onPress={() => this.operate('+')}>
-                                      <Text style={[styles.btntext, styles.white]}>+</Text>
+                                      <Text style={[styles.btntext, styles.white]}>ctg</Text>
                                   </TouchableOpacity>
                                   <TouchableOpacity style={styles.btn} onPress={() => this.buttonPressed('=')}>
-                                      <Text style={[styles.btntext, styles.white]}>=</Text>
+                                      <Text style={[styles.btntext, styles.white]}>sin</Text>
                                   </TouchableOpacity>
                               </View>
                           )
