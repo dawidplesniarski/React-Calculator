@@ -29,8 +29,8 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
       resultText: "",
       calculationText: "0"
     };
-    this.functions = ['sqrt','e^x','ln','e','pi','x!','10^x','log10','x^2','x^3'];
-    this.operations = ['AC','+','-','*','/']
+    this.functions = ['sqrt','e^x','ln','e','pi','x!','10^x','log10','x^2','x^3','+/-'];
+    this.operations = ['AC','+','-','*','/','%']
   }
 
 
@@ -49,7 +49,6 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
       case '-':
       case '*':
       case '/':
-      case 'sqrt':
           return false
     }
     return true
@@ -75,6 +74,13 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
   }
 
 
+  plusMinus(){
+      var n;
+      n = -1*(this.state.resultText)
+      this.setState({
+          resultText: String(n)
+      })
+  }
 
   operate(operation) {
     switch(operation){
@@ -89,6 +95,7 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
     case '-':
     case '*':
     case '/':
+        case '%':
 
         const lastChar = this.state.resultText.split('').pop();
         if (this.operations.indexOf(lastChar) > 0) return;
@@ -132,22 +139,27 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
               this.setState({
                   calculationText: this.factorial(this.state.resultText)
               })
+              break
           case '10^x':
               this.setState({
                   calculationText: Math.pow(10, (this.state.resultText))
               })
+              break
           case 'log10':
               this.setState({
                   calculationText: Math.log10(this.state.resultText)
               })
+              break
           case 'x^2':
               this.setState({
                   calculationText: Math.pow(this.state.resultText, 2)
               })
+              break
           case 'x^3':
               this.setState({
                   calculationText: Math.pow(this.state.resultText, 3)
               })
+              break
       }
   }
 
@@ -251,10 +263,10 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
                               <TouchableOpacity style={styles.btn} onPress={() => this.operate('AC')}>
                                   <Text style={styles.btntext}>AC</Text>
                               </TouchableOpacity>
-                              <TouchableOpacity style={styles.btn} onPress={() => this.operate('AC')}>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.plusMinus()}>
                                   <Text style={styles.btntext}>+/-</Text>
                               </TouchableOpacity>
-                              <TouchableOpacity style={styles.btn} onPress={() => this.operate('AC')}>
+                              <TouchableOpacity style={styles.btn} onPress={() => this.operate('%')}>
                                   <Text style={styles.btntext}>%</Text>
                               </TouchableOpacity>
                           </View>
