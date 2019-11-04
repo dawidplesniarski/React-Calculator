@@ -6,7 +6,7 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
 
 
   constructor() {
-    super()
+    super();
 
       const isPortrait = () => {
           const dim = Dimensions.get('screen');
@@ -28,22 +28,22 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
       this.state = {
       resultText: "",
       calculationText: "0"
-    }
-    this.functions = ['sqrt','e^x','ln','e','pi','x!','10^x','log10','x^2','x^3']
+    };
+    this.functions = ['sqrt','e^x','ln','e','pi','x!','10^x','log10','x^2','x^3'];
     this.operations = ['AC','+','-','*','/']
   }
 
 
 
      calculateResult() {
-    const text = this.state.resultText
+    const text = this.state.resultText;
     this.setState({
       calculationText: eval(text)
     })
   }
 
   validate() {
-    const text = this.state.resultText
+    const text = this.state.resultText;
     switch(text.slice(-1)){
       case '+':
       case '-':
@@ -54,6 +54,14 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
     }
     return true
   }
+     factorial(n) {
+         if (n === 0) return 1;
+         let f = 1;
+         for (let i = 1; i < n; i++) {
+             f = f * (i + 1);
+         }
+         return f;
+     }
 
   buttonPressed(text) {
 
@@ -66,6 +74,8 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
     })
   }
 
+
+
   operate(operation) {
     switch(operation){
       case 'AC':
@@ -73,17 +83,17 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
           resultText: '',
           calculationText: '0'
 
-      })
-      break
+      });
+      break;
     case '+':
     case '-':
     case '*':
     case '/':
 
-        const lastChar = this.state.resultText.split('').pop()
-        if (this.operations.indexOf(lastChar) > 0) return
+        const lastChar = this.state.resultText.split('').pop();
+        if (this.operations.indexOf(lastChar) > 0) return;
 
-        if(this.state.text == "") return
+        if(this.state.text == "") return;
         this.setState({
           resultText: this.state.resultText + operation
         })
@@ -96,30 +106,31 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
           case 'e^x':
               this.setState({
                   calculationText: Math.pow(2.71,this.state.resultText)
-              })
-              break
+              });
+              break;
           case 'sqrt':
               this.setState({
                   calculationText: Math.sqrt(this.state.resultText)
-              })
-              break
+              });
+              break;
           case 'ln':
               this.setState({
                   calculationText: Math.log(this.state.resultText)
-              })
-              break
+              });
+              break;
           case 'e':
               this.setState({
                   calculationText: Math.E
-              })
-              break
+              });
+              break;
           case 'pi':
               this.setState({
                   calculationText: Math.PI
-              })
-          case 'x!': Math.PI
+              });
+              break;
+          case 'x!':
               this.setState({
-                  calculationText: Math.PI
+                  calculationText: this.factorial(this.state.resultText)
               })
       }
   }
@@ -311,7 +322,7 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
                           </TouchableOpacity>
                       </View>
                       <View style={styles.operations}>
-                          <TouchableOpacity style={styles.btn} onPress={() => this.function('sqrt')}>
+                          <TouchableOpacity style={styles.btn} onPress={() => this.function('x!')}>
                               <Text style={[styles.btntext, styles.white]}>x!</Text>
                           </TouchableOpacity>
                           <TouchableOpacity style={styles.btn} onPress={() => this.function('e^x')}>
