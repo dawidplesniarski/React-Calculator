@@ -132,6 +132,22 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
               this.setState({
                   calculationText: this.factorial(this.state.resultText)
               })
+          case '10^x':
+              this.setState({
+                  calculationText: Math.pow(10, (this.state.resultText))
+              })
+          case 'log10':
+              this.setState({
+                  calculationText: Math.log10(this.state.resultText)
+              })
+          case 'x^2':
+              this.setState({
+                  calculationText: Math.pow(this.state.resultText, 2)
+              })
+          case 'x^3':
+              this.setState({
+                  calculationText: Math.pow(this.state.resultText, 3)
+              })
       }
   }
 
@@ -325,16 +341,16 @@ import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} 
                           <TouchableOpacity style={styles.btn} onPress={() => this.function('x!')}>
                               <Text style={[styles.btntext, styles.white]}>x!</Text>
                           </TouchableOpacity>
-                          <TouchableOpacity style={styles.btn} onPress={() => this.function('e^x')}>
+                          <TouchableOpacity style={styles.btn} onPress={() => this.function('10^x')}>
                               <Text style={[styles.btntext, styles.white]}>10^x</Text>
                           </TouchableOpacity>
-                          <TouchableOpacity style={styles.btn} onPress={() => this.function('ln')}>
+                          <TouchableOpacity style={styles.btn} onPress={() => this.function('log10')}>
                               <Text style={[styles.btntext, styles.white]}>log10</Text>
                           </TouchableOpacity>
-                          <TouchableOpacity style={styles.btn} onPress={() => this.function('e')}>
+                          <TouchableOpacity style={styles.btn} onPress={() => this.function('x^2')}>
                               <Text style={[styles.btntext, styles.white]}>x^2</Text>
                           </TouchableOpacity>
-                          <TouchableOpacity style={styles.btn} onPress={() => this.function('pi')}>
+                          <TouchableOpacity style={styles.btn} onPress={() => this.function('x^3')}>
                               <Text style={[styles.btntext, styles.white]}>x^3</Text>
                           </TouchableOpacity>
                       </View>
