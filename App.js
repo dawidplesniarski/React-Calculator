@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View, Button, TouchableOpacity, Dimensions} from 'react-native';
+import SplashScreen from 'react-native-splash-screen';
+
 
  export default class App extends Component {
 
+componentDidMount(): void {
+    SplashScreen.hide()
+}
 
-
-  constructor() {
+     constructor() {
     super();
 
       const isPortrait = () => {
